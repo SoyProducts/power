@@ -10,4 +10,12 @@
 + name & channel
 + phone #
 + request form
-+ twitter
++ station twitter handle
++ DJs twitter handles
+
+### notes
++ switch between local and US
++ muting notifications
++ phone # links to call
++ request form opens up default browser
++ set timer on request forms
