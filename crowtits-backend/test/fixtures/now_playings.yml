@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  song_title: MyString
+  channel_name: MyString
+  stream_link: MyString
+  station_twitter: MyString
+  phone: MyString
+  request_form_link: MyString
+
+two:
+  song_title: MyString
+  channel_name: MyString
+  stream_link: MyString
+  station_twitter: MyString
+  phone: MyString
+  request_form_link: MyString
