@@ -23,7 +23,7 @@ class App extends Component {
       body: JSON.stringify(token)
     }
 
-    return fetch(`http://localhost:3001/auth/sign_in`, requestOptions)
+    return fetch(`http://localhost:3001/auth/request`, requestOptions)
       .then(response => {
         let cookie = new Cookies()
         cookie.set('accesstoken', response.headers.get('access-token'));
