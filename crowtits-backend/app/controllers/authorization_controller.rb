@@ -10,8 +10,9 @@ class AuthorizationController < ApplicationController
    @user = User.create_user_for_google(response.parsed_response)
    tokens = @user.create_new_auth_token
    @user.save
-   p tokens
+   p "tokens: #{tokens}"
    set_headers(tokens)
+   p "response: #{response}"
    render json: { status: 'Signed in successfully with google'}
  end
 

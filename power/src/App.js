@@ -25,7 +25,6 @@ class App extends Component {
 
     return fetch(`http://localhost:3001/auth/request`, requestOptions)
       .then(response => {
-        console.log(response.headers)
 
         let cookie = new Cookies()
         cookie.set('accesstoken', response.headers.get('access-token'));
@@ -33,6 +32,7 @@ class App extends Component {
         cookie.set('tokentype',response.headers.get('token-type'));
         cookie.set('expiry',response.headers.get('expiry'));
         cookie.set('uid', response.headers.get('uid'));
+        console.log(response.headers)
       })
   }
 
