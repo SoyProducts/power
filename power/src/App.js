@@ -25,7 +25,6 @@ class App extends Component {
 
     return fetch(`http://localhost:3001/auth/request`, requestOptions)
       .then(response => {
-
         let cookie = new Cookies()
         cookie.set('accesstoken', response.headers.get('access-token'));
         cookie.set('client',response.headers.get('client'));
