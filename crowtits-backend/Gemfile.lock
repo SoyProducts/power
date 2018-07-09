@@ -61,6 +61,9 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    devise_token_auth (0.1.43)
+      devise (> 3.5.2, < 4.5)
+      rails (< 6)
     erubi (1.7.1)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
@@ -68,8 +71,11 @@ GEM
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.7)
+    httparty (0.16.2)
+      multi_xml (>= 0.5.2)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
+    json (2.1.0)
     jwt (1.5.6)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -115,6 +121,7 @@ GEM
       pry (>= 0.10.4)
     puma (3.11.4)
     rack (2.0.5)
+    rack-cors (1.0.2)
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
     rails (5.1.6)
@@ -179,12 +186,16 @@ DEPENDENCIES
   binding_of_caller
   byebug
   devise
+  devise_token_auth
+  httparty
+  json
   listen (>= 3.0.5, < 3.2)
   omniauth
   omniauth-google-oauth2
   pg (>= 0.18, < 2.0)
   pry-rails
   puma (~> 3.7)
+  rack-cors
   rails (~> 5.1.6)
   spring
   spring-watcher-listen (~> 2.0.0)
