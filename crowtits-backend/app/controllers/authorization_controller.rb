@@ -25,6 +25,7 @@ def set_headers(tokens)
   headers['expiry'] =  (tokens['expiry']).to_s
   headers['uid'] =@user.uid
   headers['token-type'] = (tokens['token-type']).to_s
+  headers['name'] = @user.name
  end
 
 end

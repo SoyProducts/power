@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
     user.email=data["email"]
     user.password=Devise.friendly_token[0,20]
     user.password_confirmation=user.password
+    user.name=data["name"]
     user.save!
   end
  end
