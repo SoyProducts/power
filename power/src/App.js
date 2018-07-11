@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {GoogleLogin, GoogleLogout} from 'react-google-oauth'
-import logo from './logo.svg';
-import './App.css';
-import Cookies from 'universal-cookie'
+// import {GoogleLogin, GoogleLogout} from 'react-google-oauth'
+// import logo from './logo.svg';
+// import './App.css';
+import Cookies from 'universal-cookie';
+import Splash from './components/Splash.js';
 
 class App extends Component {
 
@@ -38,45 +39,51 @@ class App extends Component {
       })
   }
 
-  noResponseGoogle() {
+  noResponseGoogle(google_response) {
     // var token = google_response.Zi;
-    // const requestOptions = {
-    //   method: 'DELETE',
-    //   headers: {
-    //     'Authorization': `Bearer ${google_response.Zi.accessToken}`,
-    //     'Content-Type': 'application/json',
-    //     'access_token': `${google_response.Zi.accessToken}`
-    //   },
-    //   body: JSON.stringify(token)
-    // }
-    //
-    // return fetch(`http://localhost:3001/auth/sign_out`, requestOptions)
-    //   .then(response => {
-        this.cookie.set('accesstoken', "SAKAMOTO");
-        this.cookie.set('client', "IS");
-        this.cookie.set('tokentype', "THE");
-        this.cookie.set('expiry', "CUTEST");
-        this.cookie.set('uid', "CAT");
-        this.cookie.set('name', "")
-        this.setState({name: 'Guest'})
-      // })
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {
+        // 'Authorization': `Bearer ${google_response.Zi.accessToken}`,
+        'Content-Type': 'application/json',
+        'access_token': this.cookie.get('accesstoken')
+      },
+      // body: JSON.stringify(token)
+    }
+
+    return fetch(`http://localhost:3001/auth/sign_out`, requestOptions)
+      .then(response => {
+        this.cookie.set('accesstoken', "");
+        this.cookie.set('client', "");
+        this.cookie.set('tokentype', "");
+        this.cookie.set('expiry', "");
+        this.cookie.set('uid', "");
+        this.cookie.set('name', "");
+        this.setState({name: 'Guest'});
+      })
   }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          {`Hello, ${this.state.name}`}
-        </p>
-        <GoogleLogin onLoginSuccess={this.responseGoogle} />
-        <button onClick={this.noResponseGoogle}>SignOut</button>
+        <Splash responseGoogle={this.responseGoogle}
+          noResponseGoogle={this.noResponseGoogle}
+          name={this.state.name} />
       </div>
     );
   }
 }
+
+// <Splashed name={this.state.name} />
+
+// <header className="App-header">
+//   <img src={logo} className="App-logo" alt="logo" />
+//   <h1 className="App-title">Welcome to React</h1>
+// </header>
+// <p className="App-intro">
+//   {`Hello, ${this.state.name}`}
+// </p>
+// <GoogleLogin onLoginSuccess={this.responseGoogle} />
+// <button onClick={this.noResponseGoogle}>SignOut</button>
 
 export default App;
