@@ -4,6 +4,11 @@ import React, { Component } from 'react';
 // import './App.css';
 import Cookies from 'universal-cookie';
 import Splash from './components/Splash.js';
+import {Route, HashRouter, Redirect} from 'react-router-dom';
+import {PrivateRoute} from './route_util.js'
+import Splashed from './components/Splashed.js';
+import {DefaultRoute} from './route_util.js'
+
 
 class App extends Component {
 
@@ -12,7 +17,8 @@ class App extends Component {
     this.responseGoogle = this.responseGoogle.bind(this)
     this.noResponseGoogle = this.noResponseGoogle.bind(this)
     this.cookie = new Cookies()
-    this.state = {name: this.cookie.get('name') !== "" ? this.cookie.get('name') : "Guest"}
+    this.state = {name: this.cookie.get('name') !== "" ? this.cookie.get('name') : "Guest",
+    accesstoken: "", areYouLegit: this.cookie.get('name') !== "" ? true : false}
   }
 
   responseGoogle(google_response) {
@@ -35,7 +41,9 @@ class App extends Component {
         this.cookie.set('expiry',response.headers.get('expiry'));
         this.cookie.set('uid', response.headers.get('uid'));
         this.cookie.set('name', response.headers.get('name'))
-        this.setState({name: response.headers.get('name')})
+        this.setState({name: response.headers.get('name'),
+          accesstoken: response.headers.get('access-token'),
+          areYouLegit: true})
       })
   }
 
@@ -59,20 +67,50 @@ class App extends Component {
         this.cookie.set('expiry', "");
         this.cookie.set('uid', "");
         this.cookie.set('name', "");
-        this.setState({name: 'Guest'});
+        this.setState({name: 'Guest', accesstoken: "", areYouLegit: false});
       })
   }
 
   render() {
+    console.log(this.state.areYouLegit)
     return (
-      <div className="App">
-        <Splash responseGoogle={this.responseGoogle}
-          noResponseGoogle={this.noResponseGoogle}
-          name={this.state.name} />
-      </div>
+      <HashRouter>
+        <div className="App">
+          <Route
+            render={(props) =>
+              this.state.areYouLegit === true ? (
+                <Redirect
+                  to={{pathname: "/sakamoto"}}/>
+              ) : (
+                <Splash
+                areYouLegit={this.state.areYouLegit}
+                accesstoken={this.state.accesstoken}
+                responseGoogle={this.responseGoogle}
+                noResponseGoogle={this.noResponseGoogle}
+                name={this.state.name} />
+              )
+            }
+            exact path="/" />
+          <Route
+            render={(props) =>
+              this.state.areYouLegit === true ? (
+                <Splashed
+                  areYouLegit={this.state.areYouLegit}
+                  accesstoken={this.state.accesstoken}
+                  name={this.state.name}
+                  noResponseGoogle={this.noResponseGoogle}
+                  />) : (
+                <Redirect to={{pathname: "/"}} />
+              )
+            }
+            exact path="/sakamoto" />
+        </div>
+    </HashRouter>
     );
   }
 }
+// render={props => <AuthAdd {...props} type="MyProp" />}
+
 
 // <Splashed name={this.state.name} />
 
