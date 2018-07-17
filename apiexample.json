@@ -1,0 +1,23 @@
+{
+  "playlist": {
+    "station": [{
+      "callsign": "nPOWERHITZ - The Hitlist #1 For All The Hitsn",
+      "genre": "nMusic, Hit Musicn",
+      "band": "nNETn",
+      "artist": "nBtsn",
+      "title": "nFake Loven",
+      "songstamp": "n2018-07-15 19:49:09n",
+      "seconds_remaining": "n48n",
+      "station_id": "n122706n"
+    }, {
+      "callsign": "nWWKLn",
+      "genre": "nMusic, Hit Musicn",
+      "band": "nFMn",
+      "artist": "nBtsn",
+      "title": "nFake Loven",
+      "songstamp": "n2018-07-15 19:42:40n",
+      "seconds_remaining": "n0n",
+      "station_id": "n12424n"
+    }]
+  }
+}

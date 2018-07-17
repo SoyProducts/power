@@ -5,9 +5,7 @@ import React, { Component } from 'react';
 import Cookies from 'universal-cookie';
 import Splash from './components/Splash.js';
 import {Route, HashRouter, Redirect} from 'react-router-dom';
-import {PrivateRoute} from './route_util.js'
 import Splashed from './components/Splashed.js';
-import {DefaultRoute} from './route_util.js'
 
 
 class App extends Component {
@@ -110,6 +108,7 @@ class App extends Component {
   }
 }
 // render={props => <AuthAdd {...props} type="MyProp" />}
+//do i need accesstoken worried about state 
 
 
 // <Splashed name={this.state.name} />

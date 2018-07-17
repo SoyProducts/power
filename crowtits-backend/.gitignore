@@ -17,3 +17,4 @@
 node_modules/
 credentials.json
 config/settings.yml
+config/secrets.yml
