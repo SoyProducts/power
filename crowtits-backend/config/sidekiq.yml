@@ -1,0 +1,4 @@
+:schedule:
+  hardworker:
+    every: ['15s']
+    class: HardWorker
