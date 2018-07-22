@@ -19,7 +19,7 @@ class Pester
       seen_in_new_response[k] = false
     end
 
-    url = "http://api.dar.fm/playlist.php?q=drake&partner_token=#{Rails.application.secrets['onradio_api_key']}"
+    url = "http://api.dar.fm/playlist.php?q=bts&partner_token=#{Rails.application.secrets['onradio_api_key']}"
     xmlresponse = HTTParty.get(url)
     jsonresponse = Hash.from_xml(xmlresponse.body).to_json
     stations = jsonresponse.playlist.station
