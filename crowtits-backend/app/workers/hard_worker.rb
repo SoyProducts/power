@@ -31,7 +31,7 @@ class HardWorker
       seen_in_new_response[k] = false
     end
 
-    url = "http://api.dar.fm/playlist.php?q=bts&partner_token=2628583291"
+    url = "http://api.dar.fm/playlist.php?q=drake&partner_token=2628583291"
     xmlresponse = HTTParty.get(url)
     jsonresponse = Hash.from_xml(xmlresponse.body)
     stations = jsonresponse['playlist']['station']
@@ -39,21 +39,22 @@ class HardWorker
     if stations.class == Hash
       stations = [stations]
     end
-    
+
     stations.each do |el|
+      p el['callsign'].strip 
       if current_notification_from_database[el['callsign'].strip]
         next
       else
-        p el['callsign'].strip
+        p
         # station_info = Station.find_by(el['callsign'].strip)
-        #return {1: {}}
+        # return {1: {}}
         # notification = Notification.new({
-        #   song_title: el.title
-        #   channel_name: el['callsign'].strip
+        #   song_title: el['title'].strip,
+        #   channel_name: el['callsign'].strip,
         #   # station_id: station_info.id
         #   now_playing: true
-          # })
-        #save @notification.save will happen in the create function of notifications controller
+        #   })
+        # save @notification.save will happen in the create function of notifications controller
       end
       seen_in_new_response[el['callsign'].strip] = true
     end
