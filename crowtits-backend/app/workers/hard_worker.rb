@@ -24,14 +24,19 @@ class HardWorker
     current_notification_from_database = {}
     seen_in_new_response = {}
     # all_notifications = Notification.find_by({now_playing: true})
-    all_notifications = {}
+    all_notifications = Notification.where(now_playing: true)
+    # we has problem here (grab 30 infinite scrolling)
+
     # assuming database object thing is ordered by station_name: { data }
-    all_notifications.each do |k, v|
-      current_notification_from_database[k] = v
-      seen_in_new_response[k] = false
+    if all_notifications.empty
+    else
+      all_notifications.each do |el|
+        current_notification_from_database[el.channel_name] = el
+        seen_in_new_response[el.channel_name] = false
+      end
     end
 
-    url = "http://api.dar.fm/playlist.php?q=drake&partner_token=2628583291"
+    url = "http://api.dar.fm/playlist.php?q=bts&partner_token=2628583291"
     xmlresponse = HTTParty.get(url)
     jsonresponse = Hash.from_xml(xmlresponse.body)
     stations = jsonresponse['playlist']['station']
@@ -41,24 +46,38 @@ class HardWorker
     end
 
     stations.each do |el|
-      p el['callsign'].strip 
+      station_info = StationInfo.find_by(name: el['callsign'].strip)
+      if !station_info
+        station_info = StationInfo.create({
+          name: el['callsign'].strip
+          })
+      end
+
       if current_notification_from_database[el['callsign'].strip]
         next
       else
-        p
-        # station_info = Station.find_by(el['callsign'].strip)
+        # we receive error on uninitialized constant Station
         # return {1: {}}
-        # notification = Notification.new({
-        #   song_title: el['title'].strip,
-        #   channel_name: el['callsign'].strip,
-        #   # station_id: station_info.id
-        #   now_playing: true
-        #   })
-        # save @notification.save will happen in the create function of notifications controller
+          Notification.create({
+          song_title: el['title'].strip,
+          channel_name: el['callsign'].strip,
+          now_playing: true
+          station_id: station_info.id
+          })
       end
       seen_in_new_response[el['callsign'].strip] = true
     end
-    # p Notifications.all
+
+    seen_in_new_response.each do |k, v|
+      if v == false
+        changed_notification = Notification.find_by(channel_name: k)
+        changed_notification.now_playing = false
+        changed_notification.save
+      else
+        next
+      end
+    end
+
   end
 
 end

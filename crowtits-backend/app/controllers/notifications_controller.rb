@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
 
   def index
-    @notifications = Notifications.all
+    @notifications = Notification.all
   end
 
   def show
