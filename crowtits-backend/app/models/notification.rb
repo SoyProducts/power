@@ -4,5 +4,5 @@ class Notification < ApplicationRecord
 
   belongs_to :station_info
 
-  after_create_commit {MessengerWorker.new.perform}
+  after_create_commit {MessengerWorker.new.perform self}
 end

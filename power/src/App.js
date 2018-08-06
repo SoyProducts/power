@@ -52,7 +52,6 @@ class App extends Component {
     if (this.state.areYouLegit === true) {
       this.room = this.props['data-cableApp'].cable.subscriptions.create({channel: 'NotificationChannel'}, {
         received: (stuff) => {
-          alert('received stuff')
           console.log(stuff)
         },
         connected: () => {

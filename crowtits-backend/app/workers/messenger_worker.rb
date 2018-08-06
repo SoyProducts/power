@@ -18,10 +18,12 @@ class MessengerWorker
   include Sidekiq::Worker
 
 
-  def perform()
+  def perform(notification)
     # executes jobs
     p "this is a different line -------------------------------------"
-    ActionCable.server.broadcast "note", notification: "hello"
+    # NotificationChannel.broadcast_to('note', {message: "hello"})
+
+    ActionCable.server.broadcast "note", notification: notification
   end
 
 end

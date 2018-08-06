@@ -2,12 +2,13 @@ development:
   # adapter: async
   adapter: redis
   url: redis://127.0.0.1:6379
-  channel_prefix: crowtits_development
-  timeout: 10
 
 
 test:
-  adapter: async
+  # adapter: async
+  adapter: redis
+  url: redis://127.0.0.1:6379
+
 
 production:
   adapter: redis
