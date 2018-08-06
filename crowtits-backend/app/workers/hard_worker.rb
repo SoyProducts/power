@@ -23,12 +23,9 @@ class HardWorker
     p "------------------------------------------------------------------------------------------"
     current_notification_from_database = {}
     seen_in_new_response = {}
-    # all_notifications = Notification.find_by({now_playing: true})
     all_notifications = Notification.where(now_playing: true)
     # we has problem here (grab 30 infinite scrolling)
-    p all_notifications
 
-    # assuming database object thing is ordered by station_name: { data }
     if all_notifications.length == 0
     else
       all_notifications.each do |el|
@@ -36,10 +33,8 @@ class HardWorker
         seen_in_new_response[el.channel_name] = false
       end
     end
-    # p "current: #{current_notification_from_database}"
-    # p "first: #{seen_in_new_response}"
 
-    url = "http://api.dar.fm/playlist.php?q=bts&partner_token=2628583291"
+    url = "http://api.dar.fm/playlist.php?q=rihanna&partner_token=2628583291"
     xmlresponse = HTTParty.get(url)
     jsonresponse = Hash.from_xml(xmlresponse.body)
     stations = jsonresponse['playlist']['station']
@@ -57,7 +52,6 @@ class HardWorker
             })
         end
 
-        # p current_notification_from_database
         if !current_notification_from_database[el['callsign'].strip]
           notification = Notification.create({
           song_title: el['title'].strip,
@@ -69,10 +63,9 @@ class HardWorker
         seen_in_new_response[el['callsign'].strip] = true
       end
 
-      p "seen: #{seen_in_new_response}"
       seen_in_new_response.each do |k, v|
         if v == false
-          #check if seconds remaining is zero
+          #check if seconds remaining is zeroc
           changed_notification = Notification.find_by(channel_name: k)
           changed_notification.update({now_playing: false})
         end

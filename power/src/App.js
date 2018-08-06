@@ -6,7 +6,7 @@ import Cookies from 'universal-cookie';
 import Splash from './components/Splash.js';
 import {Route, HashRouter, Redirect} from 'react-router-dom';
 import Splashed from './components/Splashed.js';
-
+//global variable current user
 
 class App extends Component {
 
@@ -15,8 +15,10 @@ class App extends Component {
     this.responseGoogle = this.responseGoogle.bind(this)
     this.noResponseGoogle = this.noResponseGoogle.bind(this)
     this.cookie = new Cookies()
+    this.room = ""
     this.state = {name: this.cookie.get('name') !== "" ? this.cookie.get('name') : "Guest",
-    accesstoken: "", areYouLegit: this.cookie.get('name') !== "" ? true : false}
+    accesstoken: "", areYouLegit: this.cookie.get('name') !== "" ? true : false,
+    room: ""}
   }
 
   responseGoogle(google_response) {
@@ -45,6 +47,34 @@ class App extends Component {
       })
   }
 
+  createSubs = () => {
+    console.log('first')
+    if (this.state.areYouLegit === true) {
+      this.room = this.props['data-cableApp'].cable.subscriptions.create({channel: 'NotificationChannel'}, {
+        received: (stuff) => {
+          alert('received stuff')
+          console.log(stuff)
+        },
+        connected: () => {
+          console.log('connected')
+          console.log(this.room)
+          // this.room.speak('message')
+          // console.log(this.state)
+        }
+      })
+    }
+  }
+
+  componentDidMount() {
+    console.log('i need some subs')
+    this.createSubs()
+  }
+
+  componentWillUpdate(nextState) {
+    console.log('i gonna get subs')
+    this.createSubs()
+  }
+
   noResponseGoogle(google_response) {
     // var token = google_response.Zi;
     const requestOptions = {
@@ -70,7 +100,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.areYouLegit)
     return (
       <HashRouter>
         <div className="App">
@@ -108,7 +137,7 @@ class App extends Component {
   }
 }
 // render={props => <AuthAdd {...props} type="MyProp" />}
-//do i need accesstoken worried about state 
+//do i need accesstoken worried about state
 
 
 // <Splashed name={this.state.name} />

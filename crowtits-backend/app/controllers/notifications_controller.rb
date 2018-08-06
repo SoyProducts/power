@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
   end
 
   def show
-    @notification = Notification.find(params[:channel_name])
+    @notification = Notification.find(params[:id])
     # @station_info = @notification.station
   end
 

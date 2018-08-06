@@ -49,4 +49,8 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.active_job.queue_adapter = :sidekiq
 
+
+    config.action_cable.mount_path = '/cable'
+    config.action_cable.url = 'wss://localhost:3001/cable'
+    config.action_cable.allowed_request_origins = [ /http:\/\/localhost:*/ ]
 end
