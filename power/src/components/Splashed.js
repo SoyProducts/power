@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import {withRouter} from 'react-router-dom';
 import Header from './Header/Header.js';
 import Quote from './Quote.js';
-import {withRouter} from 'react-router-dom';
+import NotificationIndex from './Notifications/NotificationIndex.js'
 // import {GoogleLogout} from 'react-google-oauth'
 
 
@@ -9,17 +10,19 @@ import {withRouter} from 'react-router-dom';
 
 class Splashed extends Component {
 
-  // constructor(props) {
-  //   super(props)
-  // }
+  constructor(props) {
+    super(props)
+  }
 
   // <p>{this.props.name} is here bitches get in the car</p>
   render() {
     return (
       <div className="splashed">
-        <Header name={this.props.name}/>
+        <Header name={this.props.name} />
         <Quote />
-          <button onClick={this.props.noResponseGoogle}>SignOut</button>
+        <NotificationIndex
+          areYouLegit={this.props.areYouLegit} />
+        <button onClick={this.props.noResponseGoogle}>SignOut</button>
       </div>
     )
   }

@@ -14,6 +14,7 @@ class App extends Component {
     super()
     this.responseGoogle = this.responseGoogle.bind(this)
     this.noResponseGoogle = this.noResponseGoogle.bind(this)
+    // this.createSubs = this.createSubs.bind(this)
     this.cookie = new Cookies()
     this.room = ""
     this.state = {name: this.cookie.get('name') !== "" ? this.cookie.get('name') : "Guest",
@@ -45,23 +46,6 @@ class App extends Component {
           accesstoken: response.headers.get('access-token'),
           areYouLegit: true})
       })
-  }
-
-  createSubs = () => {
-    console.log('first')
-    if (this.state.areYouLegit === true) {
-      this.room = this.props['data-cableApp'].cable.subscriptions.create({channel: 'NotificationChannel'}, {
-        received: (stuff) => {
-          console.log(stuff)
-        },
-        connected: () => {
-          console.log('connected')
-          console.log(this.room)
-          // this.room.speak('message')
-          // console.log(this.state)
-        }
-      })
-    }
   }
 
   componentDidMount() {
