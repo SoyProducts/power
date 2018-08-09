@@ -34,7 +34,7 @@ class HardWorker
       end
     end
 
-    url = "http://api.dar.fm/playlist.php?q=rihanna&partner_token=2628583291"
+    url = "http://api.dar.fm/playlist.php?q=bts&partner_token=2628583291"
     xmlresponse = HTTParty.get(url)
     jsonresponse = Hash.from_xml(xmlresponse.body)
     stations = jsonresponse['playlist']['station']
@@ -44,22 +44,28 @@ class HardWorker
         stations = [stations]
       end
 
-      stations.each do |el|
-        station_info = StationInfo.find_by(name: el['callsign'].strip)
-        if !station_info
-          station_info = StationInfo.create({
-            name: el['callsign'].strip
-            })
-        end
+      netband = "net"
 
-        if !current_notification_from_database[el['callsign'].strip]
-          notification = Notification.create({
-          song_title: el['title'].strip,
-          channel_name: el['callsign'].strip,
-          now_playing: true,
-          station_info_id: station_info.id
-          })
-        end
+      stations.each do |el|
+        if el['band'].strip.downcase == netband
+        else
+          station_info = StationInfo.find_by(name: el['callsign'].strip)
+          if station_info == nil
+            station_info = StationInfo.create({
+              name: el['callsign'].strip
+              })
+          end
+
+          if current_notification_from_database[el['callsign'].strip] == nil
+            notification = Notification.create({
+            song_title: el['title'].strip,
+            channel_name: el['callsign'].strip,
+            now_playing: true,
+            station_info_id: station_info.id
+            })
+          else
+          end
+        end 
         seen_in_new_response[el['callsign'].strip] = true
       end
 
@@ -73,6 +79,6 @@ class HardWorker
 
     end
 
-  end
 
+  end
 end
