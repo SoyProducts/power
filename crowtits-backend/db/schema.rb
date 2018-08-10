@@ -10,20 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180710055426) do
+ActiveRecord::Schema.define(version: 2018_07_29_060845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "now_playings", force: :cascade do |t|
+  create_table "notifications", force: :cascade do |t|
     t.string "song_title"
     t.string "channel_name"
-    t.string "stream_link"
-    t.string "station_twitter"
-    t.string "phone"
-    t.string "request_form_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "now_playing"
+    t.integer "station_info_id"
+    t.index ["now_playing"], name: "index_notifications_on_now_playing"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -39,6 +38,17 @@ ActiveRecord::Schema.define(version: 20180710055426) do
     t.integer "duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "station_infos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "stream_link"
+    t.string "station_twitter"
+    t.string "DJtwitter"
+    t.string "phone_number"
+    t.string "request_form_link"
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,0 +1,25 @@
+{
+  "playlist": {
+    "station": [{
+      "callsign": "POWERHITZ - The Hitlist #1 For All The Hits",
+      "genre": "Music, Hit Music",
+      "band": "NET",
+      "artist": "Bts",
+      "title": "Fake Love",
+      "songstamp": "2018-07-15 19:49:09",
+      "seconds_remaining": "48",
+      "station_id": "122706"
+    }, {
+      "callsign": "WWKL",
+      "genre": "Music, Hit Music",
+      "band": "FM",
+      "artist": "Bts",
+      "title": "Fake Love",
+      "songstamp": "2018-07-15 19:42:40",
+      "seconds_remaining": "0",
+      "station_id": "12424"
+    }]
+  }
+}
+
+2628583291

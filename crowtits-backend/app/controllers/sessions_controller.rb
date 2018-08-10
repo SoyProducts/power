@@ -7,8 +7,3 @@ class SessionsController < ApplicationController
   end
 
 end
-
-=begin
-  create -> user + accesstoken
-
-=end

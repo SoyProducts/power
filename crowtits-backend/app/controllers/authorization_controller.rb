@@ -10,9 +10,9 @@ class AuthorizationController < ApplicationController
    @user = User.create_user_for_google(response.parsed_response)
    tokens = @user.create_new_auth_token
    @user.save
-   p "tokens: #{tokens}"
+  #  p "tokens: #{tokens}"
    set_headers(tokens)
-   p "response: #{response}"
+  #  p "response: #{response}"
    @session = Session.new({accesstoken: tokens['access-token'].to_s, uid: @user.uid, active: true})
    @session.save
    render json: { status: 'Signed in successfully with google'}
