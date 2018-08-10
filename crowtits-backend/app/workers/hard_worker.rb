@@ -45,7 +45,7 @@ class HardWorker
       end
 
       netband = "net"
-
+#need to find a way to compare timestamps with the same station
       stations.each do |el|
         if el['band'].strip.downcase == netband
         else
@@ -65,13 +65,16 @@ class HardWorker
             })
           else
           end
-        end 
+        end
         seen_in_new_response[el['callsign'].strip] = true
+        if el['seconds_remaining'].strip == "0" || el['seconds_remaining'].strip == 0
+          forceupdate = Notification.find_by(song_title: el['callsign'].strip)
+          forceupdate.update({now_playing: false})
+        end
       end
 
       seen_in_new_response.each do |k, v|
         if v == false
-          #check if seconds remaining is zeroc
           changed_notification = Notification.find_by(channel_name: k)
           changed_notification.update({now_playing: false})
         end
