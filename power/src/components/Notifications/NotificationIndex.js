@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 class NotificationIndex extends Component {
 
@@ -20,7 +20,7 @@ class NotificationIndex extends Component {
           let notificationArray = this.state.notificationLogs
           notificationArray.push(data)
           this.setState({notificationLogs: notificationArray})
-          console.log(stuff)
+          console.log(data)
         },
         connected: () => {
           console.log('connected')
@@ -39,6 +39,11 @@ class NotificationIndex extends Component {
   //   <notificationItem />
   // })
   render() {
+    return(
+      <div></div>
+    )
   }
 
 }
+
+export default NotificationIndex;

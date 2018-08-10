@@ -38,6 +38,7 @@ class HardWorker
     xmlresponse = HTTParty.get(url)
     jsonresponse = Hash.from_xml(xmlresponse.body)
     stations = jsonresponse['playlist']['station']
+    p stations 
 
     if stations != nil
       if stations.class == Hash
@@ -45,8 +46,8 @@ class HardWorker
       end
 
       netband = "net"
-#need to find a way to compare timestamps with the same station
-      stations.each do |el|
+
+      stations.each_with_index do |el, i|
         if el['band'].strip.downcase == netband
         else
           station_info = StationInfo.find_by(name: el['callsign'].strip)
@@ -57,12 +58,15 @@ class HardWorker
           end
 
           if current_notification_from_database[el['callsign'].strip] == nil
-            notification = Notification.create({
-            song_title: el['title'].strip,
-            channel_name: el['callsign'].strip,
-            now_playing: true,
-            station_info_id: station_info.id
-            })
+            if el == station[i-1]
+            else
+              notification = Notification.create({
+              song_title: el['title'].strip,
+              channel_name: el['callsign'].strip,
+              now_playing: true,
+              station_info_id: station_info.id
+              })
+            end
           else
           end
         end
