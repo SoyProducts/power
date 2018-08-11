@@ -48,15 +48,15 @@ class App extends Component {
       })
   }
 
-  componentDidMount() {
-    console.log('i need some subs')
-    this.createSubs()
-  }
-
-  componentWillUpdate(nextState) {
-    console.log('i gonna get subs')
-    this.createSubs()
-  }
+  // componentDidMount() {
+  //   console.log('i need some subs')
+  //   this.createSubs()
+  // }
+  //
+  // componentWillUpdate(nextState) {
+  //   console.log('i gonna get subs')
+  //   this.createSubs()
+  // }
 
   noResponseGoogle(google_response) {
     // var token = google_response.Zi;

@@ -38,7 +38,6 @@ class HardWorker
     xmlresponse = HTTParty.get(url)
     jsonresponse = Hash.from_xml(xmlresponse.body)
     stations = jsonresponse['playlist']['station']
-    p stations 
 
     if stations != nil
       if stations.class == Hash
@@ -47,7 +46,7 @@ class HardWorker
 
       netband = "net"
 
-      stations.each_with_index do |el, i|
+      stations.each do |el|
         if el['band'].strip.downcase == netband
         else
           station_info = StationInfo.find_by(name: el['callsign'].strip)
@@ -58,7 +57,7 @@ class HardWorker
           end
 
           if current_notification_from_database[el['callsign'].strip] == nil
-            if el == station[i-1]
+            if el['seconds_remaining'].strip == "0" || el['seconds_remaining'].strip == 0
             else
               notification = Notification.create({
               song_title: el['title'].strip,
@@ -71,10 +70,6 @@ class HardWorker
           end
         end
         seen_in_new_response[el['callsign'].strip] = true
-        if el['seconds_remaining'].strip == "0" || el['seconds_remaining'].strip == 0
-          forceupdate = Notification.find_by(song_title: el['callsign'].strip)
-          forceupdate.update({now_playing: false})
-        end
       end
 
       seen_in_new_response.each do |k, v|

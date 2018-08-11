@@ -17,9 +17,6 @@ class NotificationIndex extends Component {
     if (this.props.areYouLegit === true) {
       this.room = this.props['cableApp'].cable.subscriptions.create({channel: 'NotificationChannel'}, {
         received: (data) => {
-          let notificationArray = this.state.notificationLogs
-          notificationArray.push(data)
-          this.setState({notificationLogs: notificationArray})
           console.log(data)
         },
         connected: () => {
@@ -30,6 +27,12 @@ class NotificationIndex extends Component {
         }
       })
     }
+  }
+
+  updateNotifications(notification) {
+    let notificationArray = this.state.notificationLogs
+    notificationArray.push(notification)
+    this.setState({notificationLogs: notificationArray})
   }
 
 
