@@ -13,7 +13,7 @@ CableApp.cable = actionCable.createConsumer(`ws://localhost:3001/cable`)
 
 ReactDOM.render(<Router>
     <GoogleAPI clientId="639592487963-akhi4ormq2ipqc6r5r5m8sfrpjsa50g9.apps.googleusercontent.com">
-      <App data-cableApp={CableApp} />
+      <App cableApp={CableApp} />
     </GoogleAPI>
   </Router>, document.getElementById('root'));
 registerServiceWorker();

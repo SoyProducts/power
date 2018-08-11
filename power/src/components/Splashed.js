@@ -21,7 +21,8 @@ class Splashed extends Component {
         <Header name={this.props.name} />
         <Quote />
         <NotificationIndex
-          areYouLegit={this.props.areYouLegit} />
+          areYouLegit={this.props.areYouLegit}
+          cableApp={this.props.cableApp} />
         <button onClick={this.props.noResponseGoogle}>SignOut</button>
       </div>
     )

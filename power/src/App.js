@@ -109,6 +109,7 @@ class App extends Component {
                   accesstoken={this.state.accesstoken}
                   name={this.state.name}
                   noResponseGoogle={this.noResponseGoogle}
+                  cableApp={this.props.cableApp}
                   />) : (
                 <Redirect to={{pathname: "/"}} />
               )
