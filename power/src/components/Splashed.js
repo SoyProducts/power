@@ -10,9 +10,9 @@ import NotificationIndex from './Notifications/NotificationIndex.js'
 
 class Splashed extends Component {
 
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
 
   // <p>{this.props.name} is here bitches get in the car</p>
   render() {

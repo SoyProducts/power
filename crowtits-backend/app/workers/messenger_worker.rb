@@ -20,7 +20,7 @@ class MessengerWorker
 
   def perform(notification)
     # executes jobs
-    p "this is a different line -------------------------------------"
+    p "this line means we creating a notification -------------------------------------"
     # NotificationChannel.broadcast_to('note', {message: "hello"})
 
     ActionCable.server.broadcast "note", notification: notification

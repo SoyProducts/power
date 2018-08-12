@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import NotificationIndexItem from './NotificationIndexItem.js';
 
 class NotificationIndex extends Component {
 
@@ -9,7 +10,16 @@ class NotificationIndex extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    fetch(`http://localhost:3001/notifications`)
+    .then(response => {
+      return response.json();
+      console.log(response)
+    })
+    .then(data => {
+      console.log(data)
+      this.setState({notificationLogs: data.notifications})
+    })
     this.createSubs();
   }
 
@@ -18,6 +28,9 @@ class NotificationIndex extends Component {
       this.room = this.props['cableApp'].cable.subscriptions.create({channel: 'NotificationChannel'}, {
         received: (data) => {
           console.log(data)
+          let notificationArray = this.state.notificationLogs
+          notificationArray.unshift(data)
+          this.setState({notificationLogs: notificationArray})
         },
         connected: () => {
           console.log('connected')
@@ -29,21 +42,14 @@ class NotificationIndex extends Component {
     }
   }
 
-  updateNotifications(notification) {
-    let notificationArray = this.state.notificationLogs
-    notificationArray.push(notification)
-    this.setState({notificationLogs: notificationArray})
-  }
-
-
-
-
-  // let notificationLogs = this.state.notificationLogs.map((el) => {
-  //   <notificationItem />
-  // })
   render() {
+    let notifications = this.state.notificationLogs.map(notification => {
+      return (
+        <NotificationIndexItem notification={notification} key={notification.id}/>
+      )
+    })
     return(
-      <div></div>
+      <div>{notifications}</div>
     )
   }
 

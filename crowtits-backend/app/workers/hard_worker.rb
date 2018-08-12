@@ -69,18 +69,24 @@ class HardWorker
           else
           end
         end
+
+        if el['seconds_remaining'].strip == "0" || el['seconds_remaining'].strip == 0
+          forcedupdate = Notification.find_by(channel_name: el['callsign'].strip)
+          if forcedupdate
+            forcedupdate.update({now_playing: false})
+          end
+        end
         seen_in_new_response[el['callsign'].strip] = true
       end
 
       seen_in_new_response.each do |k, v|
         if v == false
-          changed_notification = Notification.find_by(channel_name: k)
+          changed_notification = Notification.where(channel_name: k).last
           changed_notification.update({now_playing: false})
         end
       end
 
     end
-
 
   end
 end
