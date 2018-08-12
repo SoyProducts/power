@@ -29,7 +29,7 @@ class NotificationIndex extends Component {
         received: (data) => {
           console.log(data)
           let notificationArray = this.state.notificationLogs
-          notificationArray.unshift(data)
+          notificationArray.unshift(data.notification)
           this.setState({notificationLogs: notificationArray})
         },
         connected: () => {

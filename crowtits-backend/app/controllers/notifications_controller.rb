@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
 
   def index
-    @notifications = Notification.all
+    @notifications = Notification.all.sort.reverse
     render json: { notifications: @notifications }
   end
 
