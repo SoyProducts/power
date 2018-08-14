@@ -43,6 +43,7 @@ class HardWorker
       if stations.class == Hash
         stations = [stations]
       end
+      p stations
 
       netband = "net"
 

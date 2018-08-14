@@ -1,8 +1,8 @@
 class NotificationsController < ApplicationController
 
   def index
-    # @notifications = Notification.order(created_at: :desc).limit(30).offset(@page * 30)
-    @notifications = Notification.all.sort.reverse
+    @notifications = Notification.order(created_at: :desc).limit(30).offset(0 * 30)
+    # @notifications = Notification.all.sort.reverse
     render json: { notifications: @notifications }
   end
 
@@ -22,8 +22,8 @@ class NotificationsController < ApplicationController
     params.require(:notification).permit(:channel_name)
   end
 
-  # def set_page
-  #   @page = params[:page] || 0
-  # end
+  def set_page
+    @page = params[:page] || 0
+  end
 
 end
