@@ -3,18 +3,14 @@ import {withRouter} from 'react-router-dom';
 import Header from './Header/Header.js';
 import Quote from './Quote.js';
 import NotificationIndex from './Notifications/NotificationIndex.js'
-// import {GoogleLogout} from 'react-google-oauth'
-
-
-// import NotificationIndex from './Notifications/NotificationIndex.js';
 
 class Splashed extends Component {
 
   // constructor(props) {
   //   super(props)
+  //   }
   // }
 
-  // <p>{this.props.name} is here bitches get in the car</p>
   render() {
     return (
       <div className="splashed">
@@ -29,6 +25,5 @@ class Splashed extends Component {
   }
 
 }
-// <NotificationIndex />
 
 export default withRouter(Splashed);
