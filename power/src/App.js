@@ -14,7 +14,6 @@ class App extends Component {
     super()
     this.responseGoogle = this.responseGoogle.bind(this)
     this.noResponseGoogle = this.noResponseGoogle.bind(this)
-    // this.createSubs = this.createSubs.bind(this)
     this.cookie = new Cookies()
     this.room = ""
     this.state = {name: this.cookie.get('name') !== "" ? this.cookie.get('name') : "Guest",
@@ -46,16 +45,6 @@ class App extends Component {
           accesstoken: response.headers.get('access-token'),
           areYouLegit: true})
       })
-  }
-
-  componentDidMount() {
-    console.log('i need some subs')
-    this.createSubs()
-  }
-
-  componentWillUpdate(nextState) {
-    console.log('i gonna get subs')
-    this.createSubs()
   }
 
   noResponseGoogle(google_response) {
@@ -109,6 +98,8 @@ class App extends Component {
                   accesstoken={this.state.accesstoken}
                   name={this.state.name}
                   noResponseGoogle={this.noResponseGoogle}
+                  cableApp={this.props.cableApp}
+                  createSubs={this.createSubs}
                   />) : (
                 <Redirect to={{pathname: "/"}} />
               )

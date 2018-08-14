@@ -43,9 +43,10 @@ class HardWorker
       if stations.class == Hash
         stations = [stations]
       end
+      p stations
 
       netband = "net"
-#need to find a way to compare timestamps with the same station
+
       stations.each do |el|
         if el['band'].strip.downcase == netband
         else
@@ -57,31 +58,36 @@ class HardWorker
           end
 
           if current_notification_from_database[el['callsign'].strip] == nil
-            notification = Notification.create({
-            song_title: el['title'].strip,
-            channel_name: el['callsign'].strip,
-            now_playing: true,
-            station_info_id: station_info.id
-            })
+            if el['seconds_remaining'].strip == "0" || el['seconds_remaining'].strip == 0
+            else
+              notification = Notification.create({
+              song_title: el['title'].strip,
+              channel_name: el['callsign'].strip,
+              now_playing: true,
+              station_info_id: station_info.id
+              })
+            end
           else
           end
         end
-        seen_in_new_response[el['callsign'].strip] = true
+
         if el['seconds_remaining'].strip == "0" || el['seconds_remaining'].strip == 0
-          forceupdate = Notification.find_by(song_title: el['callsign'].strip)
-          forceupdate.update({now_playing: false})
+          forcedupdate = Notification.find_by(channel_name: el['callsign'].strip)
+          if forcedupdate
+            forcedupdate.update({now_playing: false})
+          end
         end
+        seen_in_new_response[el['callsign'].strip] = true
       end
 
       seen_in_new_response.each do |k, v|
         if v == false
-          changed_notification = Notification.find_by(channel_name: k)
+          changed_notification = Notification.where(channel_name: k).last
           changed_notification.update({now_playing: false})
         end
       end
 
     end
-
 
   end
 end
