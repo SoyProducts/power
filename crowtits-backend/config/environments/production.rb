@@ -78,6 +78,9 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  config.force_ssl = true
+
+
 
   config.action_cable.mount_path = '/cable'
   config.action_cable.url = 'wss://localhost:3001/cable'

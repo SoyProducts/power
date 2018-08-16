@@ -38,12 +38,13 @@ class HardWorker
     xmlresponse = HTTParty.get(url)
     jsonresponse = Hash.from_xml(xmlresponse.body)
     stations = jsonresponse['playlist']['station']
+    p stations
 
     if stations != nil
       if stations.class == Hash
         stations = [stations]
       end
-      p stations
+      # p stations
 
       netband = "net"
 
