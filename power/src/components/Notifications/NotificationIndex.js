@@ -6,10 +6,12 @@ class NotificationIndex extends Component {
   constructor(props) {
     super(props)
     this.paginateScroll = this.paginateScroll.bind(this);
+    this.stationDetails = this.stationDetails.bind(this);
     this.state = {
       notificationLogs: [],
       page: 0,
     }
+    this.stationcache = {};
   }
 
   componentDidMount() {
@@ -74,11 +76,37 @@ class NotificationIndex extends Component {
     }
   }
 
+  stationDetails(e) {
+    //e.target gives whatever. Check if it's a p tag. Then go to parentnode
+    //if it's not a p tag then you're the father
+    let target;
+    if (e.target.tagName === 'P') {
+      // console.log(target.parentElement)
+      target = e.target.parentNode
+      console.log(target.dataset.stationid)
+    } else {
+      target = e.target
+    }
+
+    let stationid = target.dataset.stationid
+    let that = this
+    if (this.stationcache[stationid]) {
+      console.log(this.stationcache)
+    } else {
+      let url = new URL(`http://localhost:3001/station_infos/${stationid}`)
+      fetch(url).then(response => {
+        return response.json();
+      }).then(data => {
+        that.stationcache[stationid] = data
+      })
+    }
+  }
+
   render() {
     let notifications = this.state.notificationLogs.map((notification, index) => {
       return (
         <NotificationIndexItem notification={notification} key={index}
-          index={index} />
+          index={index} stationDetails={this.stationDetails} />
       )
     })
     return(
