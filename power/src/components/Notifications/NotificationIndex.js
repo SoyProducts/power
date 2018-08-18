@@ -130,7 +130,8 @@ class NotificationIndex extends Component {
         <div>{notifications}</div>
         <NotificationModal stationcache={this.stationcache}
           currentStationId={this.state.currentStationId}
-          modalShow={this.state.modalShow} />
+          modalShow={this.state.modalShow}
+          modalToggle={this.modalToggle} />
       </div>
     )
   }

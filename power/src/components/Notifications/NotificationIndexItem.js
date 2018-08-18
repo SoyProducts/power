@@ -10,9 +10,6 @@ class NotificationIndexItem extends Component {
   //   }
   // }
 
-
-
-
   render() {
     return (
       <div className="notification-index-item" id={this.props.index}
@@ -26,10 +23,6 @@ class NotificationIndexItem extends Component {
       </div>
 
     )
-    // <div onClick={this.modalToggle}
-    //   className={`the-modal ${this.state.modalshow}`}>
-    //   {this.stationDetails}
-    // </div>
   }
 
 }

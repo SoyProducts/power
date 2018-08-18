@@ -6,9 +6,15 @@ const NotificationModal = props => {
   }
     return (
       <div className={props.modalShow}>
-      {props.stationcache[props.currentStationId].name}
+        <div className="modal-navigation-bs">
+          <div className="x">
+            <p className="dmx" onClick={props.modalToggle}>&times;</p>
+          </div>
+        </div>
+        <p>{props.stationcache[props.currentStationId].name}</p>
       </div>
     )
+
 }
 
 export default NotificationModal;
