@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import NotificationIndexItem from './NotificationIndexItem.js';
+import NotificationModal from './NotificationModal.js';
+import './NotificationModal.css';
 
 class NotificationIndex extends Component {
 
@@ -7,9 +9,13 @@ class NotificationIndex extends Component {
     super(props)
     this.paginateScroll = this.paginateScroll.bind(this);
     this.stationDetails = this.stationDetails.bind(this);
+    this.modalToggle = this.modalToggle.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.state = {
       notificationLogs: [],
       page: 0,
+      modalShow: "hidden",
+      currentStationId: 0
     }
     this.stationcache = {};
   }
@@ -76,41 +82,56 @@ class NotificationIndex extends Component {
     }
   }
 
-  stationDetails(e) {
-    //e.target gives whatever. Check if it's a p tag. Then go to parentnode
-    //if it's not a p tag then you're the father
-    let target;
-    if (e.target.tagName === 'P') {
-      // console.log(target.parentElement)
-      target = e.target.parentNode
-      console.log(target.dataset.stationid)
-    } else {
-      target = e.target
-    }
-
+  stationDetails(target) {
     let stationid = target.dataset.stationid
     let that = this
     if (this.stationcache[stationid]) {
-      console.log(this.stationcache)
+      this.setState({currentStationId: stationid})
     } else {
       let url = new URL(`http://localhost:3001/station_infos/${stationid}`)
       fetch(url).then(response => {
         return response.json();
       }).then(data => {
-        that.stationcache[stationid] = data
+        that.stationcache[stationid] = data.station
+        console.log(this.stationcache)
+        this.setState({currentStationId: stationid})
       })
     }
+  }
+
+  modalToggle(target) {
+    this.setState({modalShow: this.state.modalShow === "hidden"
+    ? "station-modal" : "hidden"})
+    console.log(this.state.modalShow)
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    let target;
+    if (e.target.tagName === 'P') {
+      target = e.target.parentNode
+    } else {
+      target = e.target
+    }
+
+    this.stationDetails(target);
+    this.modalToggle(target);
   }
 
   render() {
     let notifications = this.state.notificationLogs.map((notification, index) => {
       return (
         <NotificationIndexItem notification={notification} key={index}
-          index={index} stationDetails={this.stationDetails} />
+          index={index} handleClick={this.handleClick} />
       )
     })
     return(
-      <div>{notifications}</div>
+      <div>
+        <div>{notifications}</div>
+        <NotificationModal stationcache={this.stationcache}
+          currentStationId={this.state.currentStationId}
+          modalShow={this.state.modalShow} />
+      </div>
     )
   }
 
