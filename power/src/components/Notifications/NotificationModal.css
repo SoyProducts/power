@@ -25,19 +25,21 @@
 
 .x {
   width: 20px;
-  margin-right: 10px; 
+  margin-right: 10px;
+  /*margin-bottom: 0;
+  margin-top: 0;*/
 }
 
 .dmx {
   cursor: pointer;
   color: black;
   transition: color .25s ease-in-out;
-  font-size: 16px;
-  /*max-height: 50px;
-  min-height: 50px;*/
-  /*height: 50px;*/
+  font-size: 30px;
   position: relative;
   border: 1px solid black;
+  padding: 2px 0px 2px 0px;
+  height: 30px;
+
 }
 
 .dmx:hover {
