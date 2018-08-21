@@ -5,7 +5,8 @@ class StationInfosController < ApplicationController
   end
 
   def show
-    @station = StationInfo.find(params[:name])
+    @station = StationInfo.find_by(id: params[:id])
+    render json: { station: @station }
   end
 
   def create

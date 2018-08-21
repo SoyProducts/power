@@ -1,0 +1,48 @@
+.station-modal {
+  background: green;
+  border: 1px solid black;
+  position: fixed;
+  top: 10%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 25%;
+  text-align: center;
+  /*height: 250px;*/
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-navigation-bs {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.x {
+  width: 20px;
+  margin-right: 10px;
+  /*margin-bottom: 0;
+  margin-top: 0;*/
+}
+
+.dmx {
+  cursor: pointer;
+  color: black;
+  transition: color .25s ease-in-out;
+  font-size: 30px;
+  position: relative;
+  border: 1px solid black;
+  padding: 2px 0px 2px 0px;
+  height: 30px;
+
+}
+
+.dmx:hover {
+  color: white;
+  transition: color .25s ease-in-out;
+}
