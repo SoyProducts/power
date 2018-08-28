@@ -35,9 +35,12 @@ class NotificationIndex extends Component {
 
   componentDidUpdate() {
     if (this.state.notificationLogs.length !== 0) {
-      console.log('nope')
       window.addEventListener('scroll', this.paginateScroll);
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.paginateScroll, false);
   }
 
   paginateScroll() {
@@ -55,9 +58,14 @@ class NotificationIndex extends Component {
         return response.json();
       })
       .then(data => {
+        // console.log(data.notifications)
+        // console.log(this.state.page)
         let pagenumber = this.state.page
         let notificationArray = this.state.notificationLogs
         let newOnes = notificationArray.concat(data.notifications)
+        if (notificationArray.length < 30) {
+          newOnes = notificationArray
+        }
         this.setState({notificationLogs: newOnes,
         page: pagenumber + 1 })
       })
@@ -75,8 +83,8 @@ class NotificationIndex extends Component {
           this.setState({notificationLogs: notificationArray})
         },
         connected: () => {
-          console.log('connected')
-          console.log(this.room)
+          // console.log('connected')
+          // console.log(this.room)
         }
       })
     }

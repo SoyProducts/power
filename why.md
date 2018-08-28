@@ -34,3 +34,9 @@ okay
 
 + my last braincell
 - push notifications. Once someone pushes no, they need to be able to allow it again. also most of this requires a server (currently using chrome's webserver for tutorials). AWS is supposed to replace localhost. What replaces webserver? Is it still AWS? Need to read what registerserviceworker.js is doing. Most of it is calling localhost, which will undoubtedly change once we have to release
+
++ when not logged in, it goes to splashed page when it should be going to splash page
+- routing issue
+
++ paginateScroll gets invoked when you log out
+- you need to unbind the function when you don't want it to be invoked anymore. You do this during componentWillUnmount yey.
