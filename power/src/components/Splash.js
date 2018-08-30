@@ -14,8 +14,6 @@ class Splash extends Component {
       <div className="splash">
         <h2 className="splash-title">{`Hello, ${this.props.name}`}</h2>
         <GoogleLogin onLoginSuccess={this.props.responseGoogle} />
-          <button onClick={this.props.noResponseGoogle}>SignOut</button>
-
       </div>
     )
   }

@@ -31,14 +31,16 @@ class HardWorker
       all_notifications.each do |el|
         current_notification_from_database[el.channel_name] = el
         seen_in_new_response[el.channel_name] = false
+        # p seen_in_new_response
       end
     end
 
-    url = "http://api.dar.fm/playlist.php?q=bts&partner_token=2628583291"
+    url = "http://api.dar.fm/playlist.php?q=@artist%20bts%20@country%20US&partner_token=2628583291"
     xmlresponse = HTTParty.get(url)
     jsonresponse = Hash.from_xml(xmlresponse.body)
     stations = jsonresponse['playlist']['station']
-    p stations
+
+    # p all_notifications.length == 0
 
     if stations != nil
       if stations.class == Hash
@@ -81,13 +83,14 @@ class HardWorker
         seen_in_new_response[el['callsign'].strip] = true
       end
 
-      seen_in_new_response.each do |k, v|
-        if v == false
-          changed_notification = Notification.where(channel_name: k).last
-          changed_notification.update({now_playing: false})
-        end
-      end
 
+    end
+    p seen_in_new_response
+    seen_in_new_response.each do |k, v|
+      if v == false
+        changed_notification = Notification.where(channel_name: k).last
+        changed_notification.update({now_playing: false})
+      end
     end
 
   end
