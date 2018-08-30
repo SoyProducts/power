@@ -40,3 +40,6 @@ okay
 
 + paginateScroll gets invoked when you log out
 - you need to unbind the function when you don't want it to be invoked anymore. You do this during componentWillUnmount yey.
+
++ next steps
+- PWA ready. HTTPs.
