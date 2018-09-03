@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 
 class NotificationIndexItem extends Component {
 
-  // constructor(props) {
-  //   super()
-  //   this.state = {
-  //     modalshow: "hidden"
-  //   }
-  // }
+  constructor(props) {
+    super()
+    this.state = {
+      modalshow: "hidden"
+    }
+  }
 
   render() {
     return (
