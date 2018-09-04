@@ -110,20 +110,5 @@ class App extends Component {
     );
   }
 }
-// render={props => <AuthAdd {...props} type="MyProp" />}
-//do i need accesstoken worried about state
-
-
-// <Splashed name={this.state.name} />
-
-// <header className="App-header">
-//   <img src={logo} className="App-logo" alt="logo" />
-//   <h1 className="App-title">Welcome to React</h1>
-// </header>
-// <p className="App-intro">
-//   {`Hello, ${this.state.name}`}
-// </p>
-// <GoogleLogin onLoginSuccess={this.responseGoogle} />
-// <button onClick={this.noResponseGoogle}>SignOut</button>
 
 export default App;
