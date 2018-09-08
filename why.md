@@ -32,4 +32,6 @@ sudo redis-server (/etc/redis)
 Notification.order(created_at: :desc).limit(30).offset(atpage * 30) so we increase the page number based on what position we are at on the frontend. copy and pasting from code look at code to see the copied version.
 
 + my last braincell
-- push notifications. Once someone pushes no, they need to be able to allow it again. also most of this requires a server (currently using chrome's webserver for tutorials). AWS is supposed to replace localhost. What replaces webserver? Is it still AWS? Need to read what registerserviceworker.js is doing. Most of it is calling localhost, which will undoubtedly change once we have to release. Lighthouse noooo 
+- push notifications. Once someone pushes no, they need to be able to allow it again. also most of this requires a server (currently using chrome's webserver for tutorials). AWS is supposed to replace localhost. What replaces webserver? Is it still AWS? Need to read what registerserviceworker.js is doing. Most of it is calling localhost, which will undoubtedly change once we have to release. Lighthouse noooo
+
++ check pwa with node post 
