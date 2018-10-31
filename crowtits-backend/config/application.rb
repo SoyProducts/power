@@ -23,7 +23,11 @@ module Crowtits
 
     config.active_job.queue_adapter = :sidekiq
 
+    config.time_zone = 'Pacific Time (US & Canada)'.freeze
+    time_now =  DateTime.now
+    time_now_in_my_zone = time_now.in_time_zone(Rails.application.config.time_zone).to_datetime
 
+    config.active_record.default_timezone = :local
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
