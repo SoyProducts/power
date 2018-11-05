@@ -14,12 +14,12 @@ class Splashed extends Component {
   render() {
     return (
       <div className="splashed">
+        <button onClick={this.props.noResponseGoogle}>SignOut</button>
         <Header name={this.props.name} />
         <Quote />
         <NotificationIndex
           areYouLegit={this.props.areYouLegit}
           cableApp={this.props.cableApp} />
-        <button onClick={this.props.noResponseGoogle}>SignOut</button>
       </div>
     )
   }
